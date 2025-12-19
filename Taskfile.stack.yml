@@ -8,16 +8,16 @@ tasks:
     cmd: pulumi stack select --create {{.CLI_ARGS}}
   stack:
     interactive: true
-    desc: Текущий стек pulumi
+    desc: Показать текущий стек pulumi
     dir: '{{.USER_WORKING_DIR}}'
     cmd: pulumi stack --show-name -Q {{.CLI_ARGS}}
   stacks:
-    desc: Список стеков pulumi
+    desc: Показать cписок стеков pulumi
     dir: '{{.USER_WORKING_DIR}}'
     cmd: pulumi stack ls {{.CLI_ARGS}}
   stack_select:
     interactive: true
-    desc: Текущий стек pulumi
+    desc: Выбрать текущий стек pulumi
     dir: '{{.USER_WORKING_DIR}}'
     cmd: pulumi stack select {{.CLI_ARGS}}
   output:

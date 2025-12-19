@@ -9,4 +9,4 @@ includes:
     checksum: b832f31541cfdeac972761a072ec4e579607abd9e91f7e42747f68c015d28559
   stack:
     taskfile: ./Taskfile.stack.yml
-    checksum: 1fa6abe116fd16ea2a640afe08799eb9125f12d6058b72871e27cbd88e04ffc0
+    checksum: 283038d3d759d0d7f9107d8137859170c688d5f4298e10350ae0b39263add131

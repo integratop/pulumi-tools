@@ -4,6 +4,10 @@ includes:
   all:
     taskfile: Taskfile.all.yml
 tasks:
+  check:
+    desc: Проверить состояние проекта
+    silent: true
+    cmd: task -t {{.TASKFILE}} -a
   version:
     desc: Показать текущую версию
     cmd: |
