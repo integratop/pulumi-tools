@@ -1,0 +1,12 @@
+# https://taskfile.dev
+version: '3'
+includes:
+  infra:
+    taskfile: ./Taskfile.infra.yml
+    checksum: e4b2f9a76dbd6f6751d076c5c0b7af8b616e32c1c88cd60e5830671826e28898
+  sdks:
+    taskfile: ./Taskfile.sdks.yml
+    checksum: b832f31541cfdeac972761a072ec4e579607abd9e91f7e42747f68c015d28559
+  stack:
+    taskfile: ./Taskfile.stack.yml
+    checksum: 1fa6abe116fd16ea2a640afe08799eb9125f12d6058b72871e27cbd88e04ffc0

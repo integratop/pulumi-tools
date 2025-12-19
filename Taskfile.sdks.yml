@@ -1,6 +1,32 @@
 # https://taskfile.dev
 version: '3'
 tasks:
+  terraform-provider-latest:
+    silent: true
+    desc: |
+      Получить последнюю версия terraform провайдера.
+      Например:
+        task terraform-provider-latest FULL_NAME=tf.timeweb.cloud/timeweb-cloud/timeweb-cloud
+    requires:
+      vars:
+        - FULL_NAME
+    cmd: |
+      FULL_NAME="{{.FULL_NAME}}"
+      host="$(echo "{{.FULL_NAME}}" | awk -F'/' '{print $1}')"
+      group="$(echo "{{.FULL_NAME}}" | awk -F'/' '{print $2}')"
+      name="$(echo "{{.FULL_NAME}}" | awk -F'/' '{print $3}')"
+      #echo "host=$host"
+      #echo "group=$group"
+      #echo "name=$name"
+      if [[ -z "$host" ]] || [[ -z "$group" ]] || [[ -z "$name" ]]; then 
+        echo "Неверное значение параметра: FULL_NAME=$FULL_NAME" >&2
+        echo "Формат параметра: FULL_NAME=имя_хоста/группа/имя_провайдера" >&2
+        echo "Например: tf.timeweb.cloud/timeweb-cloud/timeweb-cloud, registry.terraform.io/yandex-cloud/yandex" >&2
+        exit 1
+      fi
+      url="https://${host?}/v1/providers/${group?}/${name?}/versions"
+      curl -fsSL "$url" | jq | grep version | cut -d'"' -f4  | sort -V | tail -1
+
   timeweb-cloud-add:
     silent: true
     desc: "Установить последнюю версию провайдера: timeweb-cloud/timeweb-cloud"
@@ -12,7 +38,36 @@ tasks:
 
   timeweb-cloud-latest:
     silent: true
-    desc: "Последняя версия провайдера: timeweb-cloud/timeweb-cloud"
-    cmd: |
-      url=https://tf.timeweb.cloud/v1/providers/timeweb-cloud/timeweb-cloud/versions
-      curl -fsSL "$url" | grep version | cut -d'"' -f4  | sort -V | tail -1
+    vars: { FULL_NAME: tf.timeweb.cloud/timeweb-cloud/timeweb-cloud }
+    desc: "Последняя версия провайдера: {{.FULL_NAME}}"
+    cmds:
+      - task: terraform-provider-latest
+        vars:
+          FULL_NAME: { ref: .FULL_NAME }
+
+  yandex-cloud-latest:
+    silent: true
+    vars: { FULL_NAME: registry.terraform.io/yandex-cloud/yandex }
+    desc: "Последняя версия провайдера: {{.FULL_NAME}}"
+    cmds:
+      - task: terraform-provider-latest
+        vars:
+          FULL_NAME: { ref: .FULL_NAME }
+
+  authentik-latest:
+    silent: true
+    vars: { FULL_NAME: registry.terraform.io/goauthentik/authentik }
+    desc: "Последняя версия провайдера: {{.FULL_NAME}}"
+    cmds:
+      - task: terraform-provider-latest
+        vars:
+          FULL_NAME: { ref: .FULL_NAME }
+
+  regru-latest:
+    silent: true
+    vars: { FULL_NAME: registry.terraform.io/murtll/regru }
+    desc: "Последняя версия провайдера: {{.FULL_NAME}}"
+    cmds:
+      - task: terraform-provider-latest
+        vars:
+          FULL_NAME: { ref: .FULL_NAME }
