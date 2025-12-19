@@ -1,0 +1,62 @@
+# https://taskfile.dev
+version: '3'
+tasks:
+  init:
+    interactive: true
+    desc: Инициализация стека pulumi
+    dir: '{{.USER_WORKING_DIR}}'
+    cmd: pulumi stack select --create {{.CLI_ARGS}}
+  stack:
+    interactive: true
+    desc: Текущий стек pulumi
+    dir: '{{.USER_WORKING_DIR}}'
+    cmd: pulumi stack --show-name -Q {{.CLI_ARGS}}
+  stacks:
+    desc: Список стеков pulumi
+    dir: '{{.USER_WORKING_DIR}}'
+    cmd: pulumi stack ls {{.CLI_ARGS}}
+  stack_select:
+    interactive: true
+    desc: Текущий стек pulumi
+    dir: '{{.USER_WORKING_DIR}}'
+    cmd: pulumi stack select {{.CLI_ARGS}}
+  output:
+    desc: Показать output стека pulumi
+    dir: '{{.USER_WORKING_DIR}}'
+    cmd: pulumi stack output {{.CLI_ARGS}}
+  output_unsafe:
+    desc: Показать output стека pulumi с секретами
+    dir: '{{.USER_WORKING_DIR}}'
+    cmd: pulumi stack output --show-secrets {{.CLI_ARGS}}
+  config:
+    desc: Показать config стека pulumi
+    dir: '{{.USER_WORKING_DIR}}'
+    cmd: pulumi config {{.CLI_ARGS}}
+  config_unsafe:
+    desc: Показать config стека pulumi с секретами
+    dir: '{{.USER_WORKING_DIR}}'
+    cmd: pulumi config --show-secrets {{.CLI_ARGS}}
+  preview:
+    interactive: true
+    desc: Посмотреть изменения стека pulumi
+    dir: '{{.USER_WORKING_DIR}}'
+    cmd: pulumi preview {{.CLI_ARGS}}
+  up:
+    interactive: true
+    desc: Выкатить стек pulumi
+    dir: '{{.USER_WORKING_DIR}}'
+    cmd: pulumi up {{.CLI_ARGS}}
+  destroy:
+    interactive: true
+    desc: Откатить стек pulumi
+    dir: '{{.USER_WORKING_DIR}}'
+    cmd: pulumi destroy {{.CLI_ARGS}}
+  destroy_target:
+    interactive: true
+    desc: Откатить выбранные из списка ресурсы стека pulumi
+    dir: '{{.USER_WORKING_DIR}}'
+    cmd: echo "Не реализовано" && exit 1
+  gen_stack_ref:
+    desc: Генерировать TypeScript обёртку для чтения output стека pulumi
+    dir: '{{.USER_WORKING_DIR}}'
+    cmd: echo "Не реализовано" && exit 1
