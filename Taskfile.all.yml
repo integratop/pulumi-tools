@@ -3,7 +3,10 @@ version: '3'
 includes:
   infra:
     taskfile: ./Taskfile.infra.yml
+    checksum: e4b2f9a76dbd6f6751d076c5c0b7af8b616e32c1c88cd60e5830671826e28898
   sdks:
     taskfile: ./Taskfile.sdks.yml
+    checksum: 3dc7f8c6f3fcd5c22b9633692835ce5da18fd5cfa55c05d820ddff97569961dd
   stack:
     taskfile: ./Taskfile.stack.yml
+    checksum: 1fa6abe116fd16ea2a640afe08799eb9125f12d6058b72871e27cbd88e04ffc0
