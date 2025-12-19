@@ -1,0 +1,17 @@
+# https://taskfile.dev
+version: '3'
+tasks:
+  whoami:
+    desc: Информация о логине pulumi
+    dir: '{{.USER_WORKING_DIR}}'
+    cmd: pulumi whoami -v {{.CLI_ARGS}}
+
+  login_s3:
+    interactive: true
+    desc: Логин в S3 бэкенд pulumi
+    dir: '{{.USER_WORKING_DIR}}'
+    cmd: |
+      AWS_ACCESS_KEY_ID=${PULUMI_AWS_ACCESS_KEY_ID?}
+      AWS_SECRET_ACCESS_KEY=${PULUMI_AWS_SECRET_ACCESS_KEY?}
+      AWS_DEFAULT_REGION=${PULUMI_AWS_DEFAULT_REGION?}
+      pulumi login "s3://${PULUMI_BACKEND_BUCKET?}?endpoint=${PULUMI_BACKEND_ENDPOINT?}&s3ForcePathStyle=true&disableSSL=false" {{.CLI_ARGS}}
