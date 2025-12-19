@@ -3,6 +3,7 @@ version: '3'
 tasks:
   timeweb-cloud-add:
     silent: true
+    desc: "Установить последнюю версию провайдера: timeweb-cloud/timeweb-cloud"
     cmd: |
       provider="tf.timeweb.cloud/timeweb-cloud/timeweb-cloud"
       version="$(task -t {{.TASKFILE}} timeweb-cloud-latest)"
