@@ -1,0 +1,17 @@
+# https://taskfile.dev
+version: '3'
+tasks:
+  timeweb-cloud-add:
+    silent: true
+    cmd: |
+      provider="tf.timeweb.cloud/timeweb-cloud/timeweb-cloud"
+      version="$(task -t {{.TASKFILE}} timeweb-cloud-latest)"
+      echo "Установка провайдера: $provider@$version"
+      pulumi package add terraform-provider tf.timeweb.cloud/timeweb-cloud/timeweb-cloud "$version"
+
+  timeweb-cloud-latest:
+    silent: true
+    desc: "Последняя версия провайдера: timeweb-cloud/timeweb-cloud"
+    cmd: |
+      url=https://tf.timeweb.cloud/v1/providers/timeweb-cloud/timeweb-cloud/versions
+      curl -fsSL "$url" | grep version | cut -d'"' -f4  | sort -V | tail -1
