@@ -1,0 +1,9 @@
+# https://taskfile.dev
+version: '3'
+includes:
+  infra:
+    taskfile: ./Taskfile.infra.yml
+  sdks:
+    taskfile: ./Taskfile.sdks.yml
+  stack:
+    taskfile: ./Taskfile.stack.yml
