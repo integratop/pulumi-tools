@@ -68,7 +68,7 @@ tasks:
     silent: true
     dir: '{{.USER_WORKING_DIR}}'
     preconditions:
-      - sh: command -v gum11
+      - sh: command -v gum
         msg: "Для работы необходим: https://charm.sh/gum"
     cmd: |
       urns="$(pulumi stack -u | grep -o "urn:[^ ]*" | gum choose --ordered --no-limit)"
