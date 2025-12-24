@@ -6,56 +6,79 @@ tasks:
     desc: Инициализация стека pulumi
     dir: '{{.USER_WORKING_DIR}}'
     cmd: pulumi stack select --create {{.CLI_ARGS}}
+
   stack:
     interactive: true
     desc: Показать текущий стек pulumi
     dir: '{{.USER_WORKING_DIR}}'
     cmd: pulumi stack --show-name -Q {{.CLI_ARGS}}
+
   stacks:
     desc: Показать cписок стеков pulumi
     dir: '{{.USER_WORKING_DIR}}'
     cmd: pulumi stack ls {{.CLI_ARGS}}
+
   stack_select:
     interactive: true
     desc: Выбрать текущий стек pulumi
     dir: '{{.USER_WORKING_DIR}}'
     cmd: pulumi stack select {{.CLI_ARGS}}
+
   output:
     desc: Показать output стека pulumi
     dir: '{{.USER_WORKING_DIR}}'
     cmd: pulumi stack output {{.CLI_ARGS}}
+
   output_unsafe:
     desc: Показать output стека pulumi с секретами
     dir: '{{.USER_WORKING_DIR}}'
     cmd: pulumi stack output --show-secrets {{.CLI_ARGS}}
+
   config:
     desc: Показать config стека pulumi
     dir: '{{.USER_WORKING_DIR}}'
     cmd: pulumi config {{.CLI_ARGS}}
+
   config_unsafe:
     desc: Показать config стека pulumi с секретами
     dir: '{{.USER_WORKING_DIR}}'
     cmd: pulumi config --show-secrets {{.CLI_ARGS}}
+
   preview:
     interactive: true
     desc: Посмотреть изменения стека pulumi
     dir: '{{.USER_WORKING_DIR}}'
     cmd: pulumi preview {{.CLI_ARGS}}
+
   up:
     interactive: true
     desc: Выкатить стек pulumi
     dir: '{{.USER_WORKING_DIR}}'
     cmd: pulumi up {{.CLI_ARGS}}
+
   destroy:
     interactive: true
     desc: Откатить стек pulumi
     dir: '{{.USER_WORKING_DIR}}'
     cmd: pulumi destroy {{.CLI_ARGS}}
+
   destroy_target:
+    desc: Выбрать ресурсы стека и удалить
     interactive: true
-    desc: Откатить выбранные из списка ресурсы стека pulumi
+    silent: true
     dir: '{{.USER_WORKING_DIR}}'
-    cmd: echo "Не реализовано" && exit 1
+    preconditions:
+      - sh: command -v gum11
+        msg: "Для работы необходим: https://charm.sh/gum"
+    cmd: |
+      urns="$(pulumi stack -u | grep -o "urn:[^ ]*" | gum choose --ordered --no-limit)"
+      if [[ -z "$urns" ]]; then
+        gum log -l error "Не выбран ресурс из списка"
+        exit 1
+      fi
+      result=$(echo -n "$urns" | tr '\n' ' ' | sed 's/ / --target /g')
+      pulumi destroy --target-dependents --target $result {{.CLI_ARGS}}
+
   gen_stack_ref:
     desc: Генерировать TypeScript обёртку для чтения output стека pulumi
     dir: '{{.USER_WORKING_DIR}}'
