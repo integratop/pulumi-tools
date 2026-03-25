@@ -1,0 +1,9 @@
+dependencies:
+  - gnu.org/coreutils@9.9.0
+  - gnu.org/findutils@4.10.0
+  - gnu.org/sed@4.9.0
+  - stedolan.github.io/jq@1.8.1
+  - github.com/mikefarah/yq@4.47.1
+  - curl.se@8.15.0
+  - nodejs.org@24.6.0
+  - npmjs.com@11.12.0

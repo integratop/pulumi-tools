@@ -1,0 +1,16 @@
+# https://taskfile.dev
+version: '3'
+set: [ e, pipefail, u ]
+includes:
+  all:
+    taskfile: Taskfile.all.yml
+tasks:
+  check:
+    desc: Проверить состояние проекта
+    silent: true
+    cmd: task -t {{.TASKFILE}} -a
+  version:
+    desc: Показать текущую версию
+    cmd: |
+      git describe --tags --abbrev=0 2>/dev/null
+    silent: true

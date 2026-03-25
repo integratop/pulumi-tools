@@ -1,0 +1,16 @@
+{
+  "name": "@integratop/pulumi-tools",
+  "version": "0.0.1-beta.3",
+  "description": "Утилиты для проектов на pulumi",
+  "keywords": [],
+  "author": {
+    "name": "Dmitriy Chudnyi",
+    "url": "https://www.chudnyi.com",
+    "email": "dmitriy@chudnyi.com"
+  },
+  "license": "ISC",
+  "type": "commonjs",
+  "files": [
+    "tasks"
+  ]
+}
